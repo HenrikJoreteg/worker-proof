@@ -6,6 +6,8 @@ Enables calling out to main thread from a worker to receive events, etc. This al
 
 If your code already _is_ on the main thread, it still works and just skips all the message passing stuff.
 
+**WARNING:** This library works by serializing functions and evaluating strings as code on the other side. Generally, this is considered inadvisable due to potential security risks involved with any variation of `eval` of use of `Function` constructor, as is done here. This should probably not be used in a real production app. Get professional security review if you're considering it.
+
 ## Why?!
 
 If you're building an app that runs primarily in a worker, there are times when you'd like to be able to do things inside that worker code that is only possible or available in the main thread.
@@ -43,8 +45,6 @@ export const listenForWindowResize () => {
 ```
 
 It will `.toString()` your function and pass it to the main thread for evaluation... yup. It uses the `new Function()` constructor to make and execute a function on the main thread and provides it a callback that can be used to post back results to the worker.
-
-**WARNING:** use of a `Function` constructor to turn strings into running code should raise a red flag for you. But, given that it's from a trusted source (your existing code) it seems less dangerous to me... but **please** use at your own risk! Not recommended for use on real production projects without professional security review.
 
 ## Running the example
 
