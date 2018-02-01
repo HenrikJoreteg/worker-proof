@@ -44,6 +44,14 @@ It will `.toString()` your function and pass it to the main thread for evaluatio
 
 **WARNING:** use of a `Function` constructor to turn strings into running code should raise a red flag for you. But, given that it's from a trusted source (your existing code) it seems less dangerous to me... but **please** use at your own risk! Not recommended for use on real production projects without professional security review.
 
+## Running the example
+
+```
+npm i && npm run example
+```
+
+Then open: http://localhost:10001
+
 ## Docs
 
 `runOnMain(fn, opts/callback)`: It takes two arguments, the function to run, and optionally a callback, or an options object.
