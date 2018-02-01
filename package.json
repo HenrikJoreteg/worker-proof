@@ -1,7 +1,7 @@
 {
   "name": "worker-proof",
   "description": "Enables calling out to main thread from a worker to register callbacks, etc.",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Henrik Joreteg <henrik@joreteg.com> (joreteg.com)",
   "bugs": {
     "url": "https://github.com/HenrikJoreteg/worker-proof/issues"
