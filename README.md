@@ -1,6 +1,6 @@
-# run-on-main
+# worker-proof
 
-![](https://img.shields.io/npm/dm/run-on-main.svg)![](https://img.shields.io/npm/v/run-on-main.svg)![](https://img.shields.io/npm/l/run-on-main.svg)
+![](https://img.shields.io/npm/dm/worker-proof.svg)![](https://img.shields.io/npm/v/worker-proof.svg)![](https://img.shields.io/npm/l/worker-proof.svg)
 
 Enables calling out to main thread from a worker to receive events, etc. This allows you to write "worker proof" code even if the code requires access to things that are only available on `window` or in the main thread.
 
@@ -15,7 +15,7 @@ First, you have to add a few goodies to the worker in your main thread:
 **main-thread.js**
 
 ```js
-import { enable } from 'run-on-main'
+import { enable } from 'worker-proof'
 
 const worker = new Worker('/worker.js')
 enable(worker)
@@ -26,10 +26,10 @@ Then inside a worker you can write something like this:
 **worker.js**
 
 ```js
-import { runOnMain } from 'run-on-main'
+import { workerProof } from 'worker-proof'
 
 export const listenForWindowResize () => {
-  runOnMain((cb) => {
+  workerProof((cb) => {
     window.addEventListener('resize', () => {
       cb({
         height: window.innerHeight,
@@ -60,7 +60,7 @@ If you simply import the worker _as is_ into the main file and never make a work
 
 ## Docs
 
-`runOnMain(fn, opts/callback)`: It takes two arguments, the function to run, and optionally a callback, or an options object.
+`workerProof(fn, opts/callback)`: It takes two arguments, the function to run, and optionally a callback, or an options object.
 
 The options object, if used can contain the following options:
 
@@ -82,7 +82,7 @@ Example of use the options object form to make a function that will give a promi
 ```js
 function readPropertyFromWindow (propertyName) {
   new Promise((resolve) => {
-    runOnMain((propName, callback) => {
+    workerProof((propName, callback) => {
       callback(window[args])
     }, {
       args: propertyName,
@@ -100,7 +100,7 @@ readPropertyFromWindow('innerHeight')
 ## install
 
 ```
-npm install run-on-main
+npm install worker-proof
 ```
 
 ## credits

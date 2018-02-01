@@ -1,7 +1,7 @@
-import { runOnMain } from '../src'
+import { workerProof } from '../src'
 
 // EXAMPLE #1 Subscribe to data from windowo
-runOnMain(cb => {
+workerProof(cb => {
   const reportDimensions = () => cb({
     height: window.innerHeight,
     width: window.innerWidth
@@ -18,7 +18,7 @@ runOnMain(cb => {
 // EXAMPLE #2 Make a promise-based function for reading properties from window
 function readPropertyFromWindow (propertyName) {
   return new Promise((resolve) => {
-    runOnMain(
+    workerProof(
       (propName, callback) => {
         callback(window[propName])
       },

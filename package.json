@@ -1,10 +1,10 @@
 {
-  "name": "run-on-main",
+  "name": "worker-proof",
   "description": "Enables calling out to main thread from a worker to register callbacks, etc.",
   "version": "0.0.0",
   "author": "Henrik Joreteg <henrik@joreteg.com> (joreteg.com)",
   "bugs": {
-    "url": "https://github.com/HenrikJoreteg/run-on-main/issues"
+    "url": "https://github.com/HenrikJoreteg/worker-proof/issues"
   },
   "dependencies": {
     "microbundle": "0.4.3"
@@ -21,14 +21,14 @@
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/HenrikJoreteg/run-on-main",
+  "homepage": "https://github.com/HenrikJoreteg/worker-proof",
   "keywords": [],
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/HenrikJoreteg/run-on-main"
+    "url": "https://github.com/HenrikJoreteg/worker-proof"
   },
   "scripts": {
     "build": "microbundle",

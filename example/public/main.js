@@ -17,7 +17,7 @@ var enable = function (worker) {
     fn(port);
   };
   worker.addEventListener('message', function (e) {
-    if (e.data === '$runOnMain') {
+    if (e.data === '$workerProof') {
       port = e.ports[0];
       port.onmessage = handler;
     }

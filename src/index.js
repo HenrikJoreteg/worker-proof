@@ -9,14 +9,14 @@ export const enable = worker => {
     fn(port)
   }
   worker.addEventListener('message', e => {
-    if (e.data === '$runOnMain') {
+    if (e.data === '$workerProof') {
       port = e.ports[0]
       port.onmessage = handler
     }
   })
 }
 
-export const runOnMain = (fn, optsOrCb) => {
+export const workerProof = (fn, optsOrCb) => {
   const opts = { multipleCallbacks: true }
   if (typeof optsOrCb === 'function') {
     opts.callback = optsOrCb
@@ -34,16 +34,16 @@ export const runOnMain = (fn, optsOrCb) => {
   }
 
   // set up our message channel if it doesn't exist
-  if (!self.$runOnMain) {
+  if (!self.$workerProof) {
     const mc = new MessageChannel()
-    self.postMessage('$runOnMain', [mc.port2])
-    self.$runOnMain = fnString => {
+    self.postMessage('$workerProof', [mc.port2])
+    self.$workerProof = fnString => {
       mc.port1.postMessage(fnString)
     }
     mc.port1.onmessage = ({ data }) => {
-      self.$runOnMain[data.id](data.data)
+      self.$workerProof[data.id](data.data)
       if (data.once) {
-        delete self.$runOnMain[data.id]
+        delete self.$workerProof[data.id]
       }
     }
   }
@@ -66,9 +66,9 @@ export const runOnMain = (fn, optsOrCb) => {
     args.push(
       `function(result){port.postMessage({id:'${id}',data:result,once:${once}})}`
     )
-    self.$runOnMain[id] = opts.callback
+    self.$workerProof[id] = opts.callback
   }
 
   // send it off for eval
-  self.$runOnMain(`(${fn.toString()})(${args.join()})`)
+  self.$workerProof(`(${fn.toString()})(${args.join()})`)
 }

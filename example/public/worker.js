@@ -7,7 +7,7 @@
 /* global MessageChannel self */
 
 
-var runOnMain = function (fn, optsOrCb) {
+var workerProof = function (fn, optsOrCb) {
   var opts = { multipleCallbacks: true };
   if (typeof optsOrCb === 'function') {
     opts.callback = optsOrCb;
@@ -25,18 +25,18 @@ var runOnMain = function (fn, optsOrCb) {
   }
 
   // set up our message channel if it doesn't exist
-  if (!self.$runOnMain) {
+  if (!self.$workerProof) {
     var mc = new MessageChannel();
-    self.postMessage('$runOnMain', [mc.port2]);
-    self.$runOnMain = function (fnString) {
+    self.postMessage('$workerProof', [mc.port2]);
+    self.$workerProof = function (fnString) {
       mc.port1.postMessage(fnString);
     };
     mc.port1.onmessage = function (ref) {
       var data = ref.data;
 
-      self.$runOnMain[data.id](data.data);
+      self.$workerProof[data.id](data.data);
       if (data.once) {
-        delete self.$runOnMain[data.id];
+        delete self.$workerProof[data.id];
       }
     };
   }
@@ -59,15 +59,15 @@ var runOnMain = function (fn, optsOrCb) {
     args.push(
       ("function(result){port.postMessage({id:'" + id + "',data:result,once:" + once + "})}")
     );
-    self.$runOnMain[id] = opts.callback;
+    self.$workerProof[id] = opts.callback;
   }
 
   // send it off for eval
-  self.$runOnMain(("(" + (fn.toString()) + ")(" + (args.join()) + ")"));
+  self.$workerProof(("(" + (fn.toString()) + ")(" + (args.join()) + ")"));
 };
 
 // EXAMPLE #1 Subscribe to data from windowo
-runOnMain(function (cb) {
+workerProof(function (cb) {
   var reportDimensions = function () { return cb({
     height: window.innerHeight,
     width: window.innerWidth
@@ -84,7 +84,7 @@ runOnMain(function (cb) {
 // EXAMPLE #2 Make a promise-based function for reading properties from window
 function readPropertyFromWindow (propertyName) {
   return new Promise(function (resolve) {
-    runOnMain(
+    workerProof(
       function (propName, callback) {
         callback(window[propName]);
       },
