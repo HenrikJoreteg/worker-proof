@@ -58,7 +58,7 @@ Then open: http://localhost:10001
 
 The options object, if used can contain the following options:
 
-```JSON
+```js
 {
   // whether or not the callback should be able to be used more than once (true by default)
   multipleCallbacks: true,
@@ -99,7 +99,7 @@ npm install run-on-main
 
 ## credits
 
-Big thanks to @DevelopIt for reviewing this and for the MessageChannel idea! He's also released some awesome libs for working with workers like: [greenlet](https://github.com/developit/greenlet), [workerize](https://github.com/developit/workerize), and [others](https://github.com/developit?utf8=%E2%9C%93&tab=repositories&q=worker&type=&language=).
+Big thanks to [@developit](https://github.com/developit) for reviewing this and for the MessageChannel idea! He's also released some awesome libs for working with workers like: [greenlet](https://github.com/developit/greenlet), [workerize](https://github.com/developit/workerize), and [others](https://github.com/developit?utf8=%E2%9C%93&tab=repositories&q=worker&type=&language=).
 
 I post all my dev-related stuff on Twitter if you want to follow me there: [@HenrikJoreteg](http://twitter.com/henrikjoreteg).
 
