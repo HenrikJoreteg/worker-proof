@@ -1,0 +1,41 @@
+{
+  "name": "run-on-main",
+  "description": "Enables calling out to main thread from a worker to register callbacks, etc.",
+  "version": "0.0.0",
+  "author": "Henrik Joreteg <henrik@joreteg.com> (joreteg.com)",
+  "bugs": {
+    "url": "https://github.com/HenrikJoreteg/run-on-main/issues"
+  },
+  "dependencies": {
+    "microbundle": "0.4.3"
+  },
+  "devDependencies": {
+    "prettier": "1.10.2",
+    "rollup": "0.55.3",
+    "rollup-plugin-buble": "0.18.0",
+    "rollup-plugin-commonjs": "8.3.0",
+    "rollup-plugin-node-resolve": "3.0.2",
+    "rollup-plugin-serve": "0.4.2",
+    "standard": "10.0.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/HenrikJoreteg/run-on-main",
+  "keywords": [],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HenrikJoreteg/run-on-main"
+  },
+  "scripts": {
+    "build": "microbundle",
+    "example": "rollup -c=./example/rollup.config.js -w",
+    "lint": "prettier --write src/index.js && standard src/index.js",
+    "prepublish": "npm run build",
+    "start": "microbundle watch"
+  },
+  "source": "src/index.js"
+}
