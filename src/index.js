@@ -26,7 +26,11 @@ export const runOnMain = (fn, optsOrCb) => {
 
   // skip everything if we're already on main
   if (typeof window !== 'undefined') {
-    return fn(opts.callback, opts.args)
+    const args = [opts.callback]
+    if (opts.args) {
+      args.unshift(opts.args)
+    }
+    return fn(...args)
   }
 
   // set up our message channel if it doesn't exist

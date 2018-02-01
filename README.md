@@ -2,7 +2,9 @@
 
 ![](https://img.shields.io/npm/dm/run-on-main.svg)![](https://img.shields.io/npm/v/run-on-main.svg)![](https://img.shields.io/npm/l/run-on-main.svg)
 
-Enables calling out to main thread from a worker to register callbacks and get values not available in worker, etc.
+Enables calling out to main thread from a worker to receive events, etc. This allows you to write "worker proof" code even if the code requires access to things that are only available on `window` or in the main thread.
+
+If your code already _is_ on the main thread, it still works and just skips all the message passing stuff.
 
 ## Why?!
 
@@ -51,6 +53,10 @@ npm i && npm run example
 ```
 
 Then open: http://localhost:10001
+
+You can experiment with "worker proofing" and showing that it works in main thread too by following instructions in `/example/main.js`.
+
+If you simply import the worker _as is_ into the main file and never make a worker at all. Everything still runs and still works without changes.
 
 ## Docs
 

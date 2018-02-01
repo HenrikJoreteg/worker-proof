@@ -17,7 +17,11 @@ var runOnMain = function (fn, optsOrCb) {
 
   // skip everything if we're already on main
   if (typeof window !== 'undefined') {
-    return fn(opts.callback, opts.args)
+    var args$1 = [opts.callback];
+    if (opts.args) {
+      args$1.unshift(opts.args);
+    }
+    return fn.apply(void 0, args$1)
   }
 
   // set up our message channel if it doesn't exist
